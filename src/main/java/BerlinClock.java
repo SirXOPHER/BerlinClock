@@ -5,13 +5,18 @@ public class BerlinClock {
         String digitalSeconds = extractDigitalSecondsFromDigitalTime(digitalTime);
         String berlinClockSeconds = convertDigitalSecondsToBerlinClockSeconds(digitalSeconds);
 
+        String digitalHours = digitalTime.substring(0, 2);
+        int hours = Integer.parseInt(digitalHours);
+
+        String thirdLampInTheTopHoursRow = hours >= 15 ? "R" : "O";
+
         return  "                 * *\n" +
                 "               *     *\n" +
                 "              *   "+ berlinClockSeconds +"   *\n" +
                 "               *     *\n" +
                 "                 * *\n" +
                 " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
-                " ║   R   ║║   R   ║║   O   ║║   O   ║\n" +
+                " ║   R   ║║   R   ║║   "+ thirdLampInTheTopHoursRow +"   ║║   O   ║\n" +
                 " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝\n" +
                 " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
                 " ║   O   ║║   O   ║║   O   ║║   O   ║\n" +
