@@ -1,9 +1,13 @@
 public class BerlinClock {
 
     public String convert(String digitalTime) {
+
+        String digitalSeconds = extractDigitalSecondsFromDigitalTime(digitalTime);
+        String berlinClockSeconds = convertDigitalSecondsToBerlinClockSeconds(digitalSeconds);
+
         return  "                 * *\n" +
                 "               *     *\n" +
-                "              *   Y   *\n" +
+                "              *   "+ berlinClockSeconds +"   *\n" +
                 "               *     *\n" +
                 "                 * *\n" +
                 " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
@@ -18,5 +22,18 @@ public class BerlinClock {
                 " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
                 " ║   Y   ║║   Y   ║║   Y   ║║   O   ║\n" +
                 " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝";
+    }
+
+    private String extractDigitalSecondsFromDigitalTime(String digitalTime) {
+        return digitalTime.substring(digitalTime.length()-2);
+    }
+
+    private String convertDigitalSecondsToBerlinClockSeconds(String digitalSeconds) {
+        int seconds = Integer.parseInt(digitalSeconds);
+        return isEvenSecond(seconds) ? "Y" : "O";
+    }
+
+    private boolean isEvenSecond(int seconds) {
+        return seconds % 2 == 0;
     }
 }
