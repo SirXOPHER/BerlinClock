@@ -1,6 +1,12 @@
-public class BerlinClock {
+class BerlinClock {
 
-    public String convert(String digitalTime) {
+
+    private static final int HOURS_THRESHOLD_TO_SWITCH_FIRST_LAMP_OF_TOP_HOURS_ROW = 5;
+    private static final int HOURS_THRESHOLD_TO_SWITCH_SECOND_LAMP_OF_TOP_HOURS_ROW = 10;
+    private static final int HOURS_THRESHOLD_TO_SWITCH_THIRD_LAMP_OF_TOP_HOURS_ROW = 15;
+    private static final int HOURS_THRESHOLD_TO_SWITCH_FOURTH_LAMP_OF_TOP_HOURS_ROW = 20;
+
+    String convert(String digitalTime) {
 
         String digitalSeconds = extractDigitalSecondsFromDigitalTime(digitalTime);
         String berlinClockSeconds = convertDigitalSecondsToBerlinClockSeconds(digitalSeconds);
@@ -8,15 +14,18 @@ public class BerlinClock {
         String digitalHours = digitalTime.substring(0, 2);
         int hours = Integer.parseInt(digitalHours);
 
-        String thirdLampInTheTopHoursRow = hours >= 15 ? "R" : "O";
+        String firstLampInTheTopHoursRow = topHoursRowLamp(hours, HOURS_THRESHOLD_TO_SWITCH_FIRST_LAMP_OF_TOP_HOURS_ROW);
+        String secondLampInTheTopHoursRow = topHoursRowLamp(hours, HOURS_THRESHOLD_TO_SWITCH_SECOND_LAMP_OF_TOP_HOURS_ROW);
+        String thirdLampInTheTopHoursRow = topHoursRowLamp(hours, HOURS_THRESHOLD_TO_SWITCH_THIRD_LAMP_OF_TOP_HOURS_ROW);
+        String fourthLampInTheTopHoursRow = topHoursRowLamp(hours, HOURS_THRESHOLD_TO_SWITCH_FOURTH_LAMP_OF_TOP_HOURS_ROW);
 
-        return  "                 * *\n" +
+        return "                 * *\n" +
                 "               *     *\n" +
-                "              *   "+ berlinClockSeconds +"   *\n" +
+                "              *   " + berlinClockSeconds + "   *\n" +
                 "               *     *\n" +
                 "                 * *\n" +
                 " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
-                " ║   R   ║║   R   ║║   "+ thirdLampInTheTopHoursRow +"   ║║   O   ║\n" +
+                " ║   " + firstLampInTheTopHoursRow + "   ║║   " + secondLampInTheTopHoursRow + "   ║║   " + thirdLampInTheTopHoursRow + "   ║║   " + fourthLampInTheTopHoursRow + "   ║\n" +
                 " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝\n" +
                 " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
                 " ║   O   ║║   O   ║║   O   ║║   O   ║\n" +
@@ -29,8 +38,17 @@ public class BerlinClock {
                 " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝";
     }
 
+
+    private String topHoursRowLamp(int hours, int hoursThresholdToSwitchLampOn) {
+        return isHourAbove(hours, hoursThresholdToSwitchLampOn) ? "R" : "O";
+    }
+
+    private boolean isHourAbove(int hours, int threshold) {
+        return hours >= threshold;
+    }
+
     private String extractDigitalSecondsFromDigitalTime(String digitalTime) {
-        return digitalTime.substring(digitalTime.length()-2);
+        return digitalTime.substring(digitalTime.length() - 2);
     }
 
     private String convertDigitalSecondsToBerlinClockSeconds(String digitalSeconds) {
