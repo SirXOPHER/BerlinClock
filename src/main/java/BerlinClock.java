@@ -1,50 +1,43 @@
+import java.util.stream.IntStream;
+
 class BerlinClock {
-
-
-    private static final int HOURS_THRESHOLD_TO_SWITCH_FIRST_LAMP_OF_TOP_HOURS_ROW = 5;
-    private static final int HOURS_THRESHOLD_TO_SWITCH_SECOND_LAMP_OF_TOP_HOURS_ROW = 10;
-    private static final int HOURS_THRESHOLD_TO_SWITCH_THIRD_LAMP_OF_TOP_HOURS_ROW = 15;
-    private static final int HOURS_THRESHOLD_TO_SWITCH_FOURTH_LAMP_OF_TOP_HOURS_ROW = 20;
 
     String convert(String digitalTime) {
 
         String digitalSeconds = extractDigitalSecondsFromDigitalTime(digitalTime);
         String berlinClockSeconds = convertDigitalSecondsToBerlinClockSeconds(digitalSeconds);
 
-        String digitalHours = digitalTime.substring(0, 2);
+        String digitalHours = extractDigitalHoursFromDigitalTime(digitalTime);
         int hours = Integer.parseInt(digitalHours);
 
-        String firstLampInTheTopHoursRow = topHoursRowLamp(hours, HOURS_THRESHOLD_TO_SWITCH_FIRST_LAMP_OF_TOP_HOURS_ROW);
-        String secondLampInTheTopHoursRow = topHoursRowLamp(hours, HOURS_THRESHOLD_TO_SWITCH_SECOND_LAMP_OF_TOP_HOURS_ROW);
-        String thirdLampInTheTopHoursRow = topHoursRowLamp(hours, HOURS_THRESHOLD_TO_SWITCH_THIRD_LAMP_OF_TOP_HOURS_ROW);
-        String fourthLampInTheTopHoursRow = topHoursRowLamp(hours, HOURS_THRESHOLD_TO_SWITCH_FOURTH_LAMP_OF_TOP_HOURS_ROW);
+        String[] fiveHoursLamp = new String[4];
+        IntStream.rangeClosed(1,4).forEach(num -> fiveHoursLamp[num-1] = switchOnFiveHoursLamp(num, hours));
 
         return "                 * *\n" +
-                "               *     *\n" +
-                "              *   " + berlinClockSeconds + "   *\n" +
-                "               *     *\n" +
-                "                 * *\n" +
-                " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
-                " ║   " + firstLampInTheTopHoursRow + "   ║║   " + secondLampInTheTopHoursRow + "   ║║   " + thirdLampInTheTopHoursRow + "   ║║   " + fourthLampInTheTopHoursRow + "   ║\n" +
-                " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝\n" +
-                " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
-                " ║   O   ║║   O   ║║   O   ║║   O   ║\n" +
-                " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝\n" +
-                " ╔═╗╔═╗╔═╗ ╔═╗╔═╗╔═╗ ╔═╗╔═╗╔═╗ ╔═╗╔═╗\n" +
-                " ║Y║║Y║║O║ ║O║║O║║O║ ║O║║O║║O║ ║O║║O║\n" +
-                " ╚═╝╚═╝╚═╝ ╚═╝╚═╝╚═╝ ╚═╝╚═╝╚═╝ ╚═╝╚═╝\n" +
-                " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
-                " ║   Y   ║║   Y   ║║   Y   ║║   O   ║\n" +
-                " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝";
+               "               *     *\n" +
+               "              *   " + berlinClockSeconds + "   *\n" +
+               "               *     *\n" +
+               "                 * *\n" +
+               " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
+               " ║   " + fiveHoursLamp[0] + "   ║║   " + fiveHoursLamp[1] + "   ║║   " + fiveHoursLamp[2] + "   ║║   " + fiveHoursLamp[3] + "   ║\n" +
+               " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝\n" +
+               " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
+               " ║   O   ║║   O   ║║   O   ║║   O   ║\n" +
+               " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝\n" +
+               " ╔═╗╔═╗╔═╗ ╔═╗╔═╗╔═╗ ╔═╗╔═╗╔═╗ ╔═╗╔═╗\n" +
+               " ║Y║║Y║║O║ ║O║║O║║O║ ║O║║O║║O║ ║O║║O║\n" +
+               " ╚═╝╚═╝╚═╝ ╚═╝╚═╝╚═╝ ╚═╝╚═╝╚═╝ ╚═╝╚═╝\n" +
+               " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
+               " ║   Y   ║║   Y   ║║   Y   ║║   O   ║\n" +
+               " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝";
     }
 
-
-    private String topHoursRowLamp(int hours, int hoursThresholdToSwitchLampOn) {
-        return isHourAbove(hours, hoursThresholdToSwitchLampOn) ? "R" : "O";
+    private String switchOnFiveHoursLamp(int position, int hours) {
+        return (hours / 5 >= position) ? "R" : "O";
     }
 
-    private boolean isHourAbove(int hours, int threshold) {
-        return hours >= threshold;
+    private String extractDigitalHoursFromDigitalTime(String digitalTime) {
+        return digitalTime.substring(0, 2);
     }
 
     private String extractDigitalSecondsFromDigitalTime(String digitalTime) {
