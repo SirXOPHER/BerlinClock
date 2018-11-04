@@ -23,16 +23,35 @@ class BerlinClock {
                "               *     *\n" +
                "                 * *\n" +
                " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
-               " ║   " + fiveHoursLamp[0] + "   ║║   " + fiveHoursLamp[1] + "   ║║   " + fiveHoursLamp[2] + "   ║║   " + fiveHoursLamp[3] + "   ║\n" +
+               " ║   " + fiveHoursLamp[0] + "   ║║   " +
+                         fiveHoursLamp[1] + "   ║║   " +
+                         fiveHoursLamp[2] + "   ║║   " +
+                         fiveHoursLamp[3] + "   ║\n" +
                " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝\n" +
                " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
-               " ║   " + oneHourLamp[0] + "   ║║   " + oneHourLamp[1] + "   ║║   " + oneHourLamp[2] + "   ║║   " + oneHourLamp[3] + "   ║\n" +
+               " ║   " + oneHourLamp[0] + "   ║║   " +
+                         oneHourLamp[1] + "   ║║   " +
+                         oneHourLamp[2] + "   ║║   " +
+                         oneHourLamp[3] + "   ║\n" +
                " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝\n" +
                " ╔═╗╔═╗╔═╗ ╔═╗╔═╗╔═╗ ╔═╗╔═╗╔═╗ ╔═╗╔═╗\n" +
-               " ║" + fiveMinutesLamp[0] + "║║" + fiveMinutesLamp[1] + "║║" + fiveMinutesLamp[2] + "║ ║" + fiveMinutesLamp[3] + "║║" + fiveMinutesLamp[4] + "║║" + fiveMinutesLamp[5] + "║ ║" + fiveMinutesLamp[6] + "║║" + fiveMinutesLamp[7] + "║║" + fiveMinutesLamp[8] + "║ ║" + fiveMinutesLamp[9] + "║║" + fiveMinutesLamp[10] + "║\n" +
+               " ║" + fiveMinutesLamp[0] + "║║" +
+                      fiveMinutesLamp[1] + "║║" +
+                      fiveMinutesLamp[2] + "║ ║" +
+                      fiveMinutesLamp[3] + "║║" +
+                      fiveMinutesLamp[4] + "║║" +
+                      fiveMinutesLamp[5] + "║ ║" +
+                      fiveMinutesLamp[6] + "║║" +
+                      fiveMinutesLamp[7] + "║║" +
+                      fiveMinutesLamp[8] + "║ ║" +
+                      fiveMinutesLamp[9] + "║║" +
+                      fiveMinutesLamp[10] + "║\n" +
                " ╚═╝╚═╝╚═╝ ╚═╝╚═╝╚═╝ ╚═╝╚═╝╚═╝ ╚═╝╚═╝\n" +
                " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
-               " ║   " + oneMinuteLamp[0] + "   ║║   " + oneMinuteLamp[1] + "   ║║   " + oneMinuteLamp[2] + "   ║║   " + oneMinuteLamp[3] + "   ║\n" +
+               " ║   " + oneMinuteLamp[0] + "   ║║   " +
+                         oneMinuteLamp[1] + "   ║║   " +
+                         oneMinuteLamp[2] + "   ║║   " +
+                         oneMinuteLamp[3] + "   ║\n" +
                " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝";
     }
 
