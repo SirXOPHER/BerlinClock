@@ -21,8 +21,9 @@ class ShowTimeOnBerlinClockFeature {
         berlinClock = new BerlinClock();
     }
 
+    @DisplayName("0: first naive test - should convert digital time in berlin clock time")
     @Test
-    void should_convert_digital_time_into_berlin_clock_time() {
+    void should_convert_digital_time_in_berlin_clock_time() {
         String digitalTime = "10:13:00";
 
         String berlinClockTime = berlinClock.convert(digitalTime);
@@ -48,8 +49,9 @@ class ShowTimeOnBerlinClockFeature {
         assertThat(berlinClockTime, is(equalTo(expectedBerlinClockTime)));
     }
 
+    @DisplayName("1: seconds - should convert digital seconds in berlin clock time")
     @Test
-    void should_convert_digital_seconds_into_berlin_clock_time() {
+    void should_convert_digital_seconds_in_berlin_clock_time() {
         String digitalTime = "10:13:23";
 
         String berlinClockTime = berlinClock.convert(digitalTime);
@@ -75,7 +77,7 @@ class ShowTimeOnBerlinClockFeature {
         assertThat(berlinClockTime, is(equalTo(expectedBerlinClockTime)));
     }
 
-    @DisplayName("should convert digital hours with different five hours block row in berlin clock time")
+    @DisplayName("2: five hours blocks - should convert digital hours with different five hours block row in berlin clock time")
     @ParameterizedTest(name = "{0} (for digital time: {1})")
     @MethodSource("digitalTimesWithDifferentFiveHoursBlockRowInBerlinClockTime")
     void should_convert_digital_hours_with_different_five_hours_block_row_in_berlin_clock_time(String description, String digitalTime, String expectedBerlinClockTime) {
@@ -198,7 +200,7 @@ class ShowTimeOnBerlinClockFeature {
         );
     }
 
-    @DisplayName("should convert digital hours with different single hours row in berlin clock time")
+    @DisplayName("3: single hour blocks - should convert digital hours with different single hours row in berlin clock time")
     @ParameterizedTest(name = "{0} (for digital time: {1})")
     @MethodSource("digitalTimesWithDifferentSingleHoursRowInBerlinClockTime")
     void should_convert_digital_hours_with_different_single_hours_row_in_berlin_clock_time(String description, String digitalTime, String expectedBerlinClockTime) {
@@ -321,7 +323,7 @@ class ShowTimeOnBerlinClockFeature {
         );
     }
 
-    @DisplayName("should convert digital minutes with different five minutes block row in berlin clock time")
+    @DisplayName("4: five minutes blocks - should convert digital minutes with different five minutes block row in berlin clock time")
     @ParameterizedTest(name = "{0} (for digital time: {1})")
     @MethodSource("digitalTimesWithDifferentFiveMinutesBlockRowInBerlinClockTime")
     void should_convert_digital_minutes_with_different_five_minutes_block_row_in_berlin_clock_time(String description, String digitalTime, String expectedBerlinClockTime) {
@@ -531,7 +533,7 @@ class ShowTimeOnBerlinClockFeature {
                         " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
                         " ║   O   ║║   O   ║║   O   ║║   O   ║\n" +
                         " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝"),
-                arguments("All lamps of five minutes row on for digital minutes equal 55", "00:55:23", "" +
+                arguments("all lamps of five minutes row on for digital minutes equal 55", "00:55:23", "" +
                         "                 * *\n" +
                         "               *     *\n" +
                         "              *   O   *\n" +
@@ -549,7 +551,7 @@ class ShowTimeOnBerlinClockFeature {
                         " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
                         " ║   O   ║║   O   ║║   O   ║║   O   ║\n" +
                         " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝"),
-                arguments("All lamps of five minutes row on for digital minutes above 55", "00:58:23", "" +
+                arguments("all lamps of five minutes row on for digital minutes above 55", "00:58:23", "" +
                         "                 * *\n" +
                         "               *     *\n" +
                         "              *   O   *\n" +
@@ -566,6 +568,129 @@ class ShowTimeOnBerlinClockFeature {
                         " ╚═╝╚═╝╚═╝ ╚═╝╚═╝╚═╝ ╚═╝╚═╝╚═╝ ╚═╝╚═╝\n" +
                         " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
                         " ║   Y   ║║   Y   ║║   Y   ║║   O   ║\n" +
+                        " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝")
+        );
+    }
+
+    @DisplayName("5: single minute blocks - should convert digital minutes with different single minutes row in berlin clock time")
+    @ParameterizedTest(name = "{0} (for digital time: {1})")
+    @MethodSource("digitalTimesWithDifferentSingleMinutesRowInBerlinClockTime")
+    void should_convert_digital_minutes_with_different_single_minutes_row_in_berlin_clock_time(String description, String digitalTime, String expectedBerlinClockTime) {
+
+        String berlinClockTime = berlinClock.convert(digitalTime);
+
+        assertThat(berlinClockTime, is(equalTo(expectedBerlinClockTime)));
+    }
+
+    private static Stream<Arguments> digitalTimesWithDifferentSingleMinutesRowInBerlinClockTime() {
+        return Stream.of(
+                arguments("no single minutes row lamps on for digital minutes equal 0", "00:00:23", "" +
+                        "                 * *\n" +
+                        "               *     *\n" +
+                        "              *   O   *\n" +
+                        "               *     *\n" +
+                        "                 * *\n" +
+                        " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
+                        " ║   O   ║║   O   ║║   O   ║║   O   ║\n" +
+                        " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝\n" +
+                        " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
+                        " ║   O   ║║   O   ║║   O   ║║   O   ║\n" +
+                        " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝\n" +
+                        " ╔═╗╔═╗╔═╗ ╔═╗╔═╗╔═╗ ╔═╗╔═╗╔═╗ ╔═╗╔═╗\n" +
+                        " ║O║║O║║O║ ║O║║O║║O║ ║O║║O║║O║ ║O║║O║\n" +
+                        " ╚═╝╚═╝╚═╝ ╚═╝╚═╝╚═╝ ╚═╝╚═╝╚═╝ ╚═╝╚═╝\n" +
+                        " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
+                        " ║   O   ║║   O   ║║   O   ║║   O   ║\n" +
+                        " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝"),
+                arguments("first lamp of single minutes row on for digital minutes equal 1", "00:01:23", "" +
+                        "                 * *\n" +
+                        "               *     *\n" +
+                        "              *   O   *\n" +
+                        "               *     *\n" +
+                        "                 * *\n" +
+                        " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
+                        " ║   O   ║║   O   ║║   O   ║║   O   ║\n" +
+                        " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝\n" +
+                        " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
+                        " ║   O   ║║   O   ║║   O   ║║   O   ║\n" +
+                        " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝\n" +
+                        " ╔═╗╔═╗╔═╗ ╔═╗╔═╗╔═╗ ╔═╗╔═╗╔═╗ ╔═╗╔═╗\n" +
+                        " ║O║║O║║O║ ║O║║O║║O║ ║O║║O║║O║ ║O║║O║\n" +
+                        " ╚═╝╚═╝╚═╝ ╚═╝╚═╝╚═╝ ╚═╝╚═╝╚═╝ ╚═╝╚═╝\n" +
+                        " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
+                        " ║   Y   ║║   O   ║║   O   ║║   O   ║\n" +
+                        " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝"),
+                arguments("first and second lamp of single minutes row on for digital minutes equal 2", "00:02:23", "" +
+                        "                 * *\n" +
+                        "               *     *\n" +
+                        "              *   O   *\n" +
+                        "               *     *\n" +
+                        "                 * *\n" +
+                        " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
+                        " ║   O   ║║   O   ║║   O   ║║   O   ║\n" +
+                        " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝\n" +
+                        " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
+                        " ║   O   ║║   O   ║║   O   ║║   O   ║\n" +
+                        " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝\n" +
+                        " ╔═╗╔═╗╔═╗ ╔═╗╔═╗╔═╗ ╔═╗╔═╗╔═╗ ╔═╗╔═╗\n" +
+                        " ║O║║O║║O║ ║O║║O║║O║ ║O║║O║║O║ ║O║║O║\n" +
+                        " ╚═╝╚═╝╚═╝ ╚═╝╚═╝╚═╝ ╚═╝╚═╝╚═╝ ╚═╝╚═╝\n" +
+                        " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
+                        " ║   Y   ║║   Y   ║║   O   ║║   O   ║\n" +
+                        " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝"),
+                arguments("first, second and third lamp of single minutes row on for digital minutes equal 3", "00:03:23", "" +
+                        "                 * *\n" +
+                        "               *     *\n" +
+                        "              *   O   *\n" +
+                        "               *     *\n" +
+                        "                 * *\n" +
+                        " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
+                        " ║   O   ║║   O   ║║   O   ║║   O   ║\n" +
+                        " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝\n" +
+                        " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
+                        " ║   O   ║║   O   ║║   O   ║║   O   ║\n" +
+                        " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝\n" +
+                        " ╔═╗╔═╗╔═╗ ╔═╗╔═╗╔═╗ ╔═╗╔═╗╔═╗ ╔═╗╔═╗\n" +
+                        " ║O║║O║║O║ ║O║║O║║O║ ║O║║O║║O║ ║O║║O║\n" +
+                        " ╚═╝╚═╝╚═╝ ╚═╝╚═╝╚═╝ ╚═╝╚═╝╚═╝ ╚═╝╚═╝\n" +
+                        " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
+                        " ║   Y   ║║   Y   ║║   Y   ║║   O   ║\n" +
+                        " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝"),
+                arguments("all lamps of single minutes row on for digital minutes equal 4", "00:04:23", "" +
+                        "                 * *\n" +
+                        "               *     *\n" +
+                        "              *   O   *\n" +
+                        "               *     *\n" +
+                        "                 * *\n" +
+                        " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
+                        " ║   O   ║║   O   ║║   O   ║║   O   ║\n" +
+                        " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝\n" +
+                        " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
+                        " ║   O   ║║   O   ║║   O   ║║   O   ║\n" +
+                        " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝\n" +
+                        " ╔═╗╔═╗╔═╗ ╔═╗╔═╗╔═╗ ╔═╗╔═╗╔═╗ ╔═╗╔═╗\n" +
+                        " ║O║║O║║O║ ║O║║O║║O║ ║O║║O║║O║ ║O║║O║\n" +
+                        " ╚═╝╚═╝╚═╝ ╚═╝╚═╝╚═╝ ╚═╝╚═╝╚═╝ ╚═╝╚═╝\n" +
+                        " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
+                        " ║   Y   ║║   Y   ║║   Y   ║║   Y   ║\n" +
+                        " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝"),
+                arguments("all lamps of single minutes row on for digital minutes above 5", "23:59:23", "" +
+                        "                 * *\n" +
+                        "               *     *\n" +
+                        "              *   O   *\n" +
+                        "               *     *\n" +
+                        "                 * *\n" +
+                        " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
+                        " ║   R   ║║   R   ║║   R   ║║   R   ║\n" +
+                        " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝\n" +
+                        " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
+                        " ║   R   ║║   R   ║║   R   ║║   O   ║\n" +
+                        " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝\n" +
+                        " ╔═╗╔═╗╔═╗ ╔═╗╔═╗╔═╗ ╔═╗╔═╗╔═╗ ╔═╗╔═╗\n" +
+                        " ║Y║║Y║║R║ ║Y║║Y║║R║ ║Y║║Y║║R║ ║Y║║Y║\n" +
+                        " ╚═╝╚═╝╚═╝ ╚═╝╚═╝╚═╝ ╚═╝╚═╝╚═╝ ╚═╝╚═╝\n" +
+                        " ╔═══════╗╔═══════╗╔═══════╗╔═══════╗\n" +
+                        " ║   Y   ║║   Y   ║║   Y   ║║   Y   ║\n" +
                         " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝")
         );
     }
