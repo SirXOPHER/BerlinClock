@@ -7,11 +7,9 @@ class BerlinClock {
         String digitalSeconds = extractDigitalSecondsFromDigitalTime(digitalTime);
         String berlinClockSeconds = convertDigitalSecondsToBerlinClockSeconds(digitalSeconds);
 
-        String digitalHours = extractDigitalHoursFromDigitalTime(digitalTime);
-        int hours = Integer.parseInt(digitalHours);
-
         String[] fiveHoursLamp = new String[4];
-        IntStream.rangeClosed(1,4).forEach(num -> fiveHoursLamp[num-1] = switchOnFiveHoursLamp(num, hours));
+        String digitalHours = extractDigitalHoursFromDigitalTime(digitalTime);
+        convertDigitalHoursToBerlinClockHours(digitalHours, fiveHoursLamp);
 
         return "                 * *\n" +
                "               *     *\n" +
@@ -32,10 +30,6 @@ class BerlinClock {
                " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝";
     }
 
-    private String switchOnFiveHoursLamp(int position, int hours) {
-        return (hours / 5 >= position) ? "R" : "O";
-    }
-
     private String extractDigitalHoursFromDigitalTime(String digitalTime) {
         return digitalTime.substring(0, 2);
     }
@@ -44,9 +38,22 @@ class BerlinClock {
         return digitalTime.substring(digitalTime.length() - 2);
     }
 
+    private void convertDigitalHoursToBerlinClockHours(String digitalHours, String[] fiveHoursLamp) {
+        int hours = Integer.parseInt(digitalHours);
+        adjustFiveHoursLampsRow(fiveHoursLamp, hours);
+    }
+
     private String convertDigitalSecondsToBerlinClockSeconds(String digitalSeconds) {
         int seconds = Integer.parseInt(digitalSeconds);
         return isEvenSecond(seconds) ? "Y" : "O";
+    }
+
+    private void adjustFiveHoursLampsRow(String[] fiveHoursLamp, int hours) {
+        IntStream.rangeClosed(1,4).forEach(num -> fiveHoursLamp[num-1] = switchOnFiveHoursLamp(num, hours));
+    }
+
+    private String switchOnFiveHoursLamp(int position, int hours) {
+        return (hours / 5 >= position) ? "R" : "O";
     }
 
     private boolean isEvenSecond(int seconds) {
