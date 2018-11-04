@@ -15,14 +15,7 @@ class BerlinClock {
         String digitalMinutes = extractDigitalMinutesFromDigitalTime(digitalTime);
         String[] fiveMinutesLamp = new String[11];
         String[] oneMinuteLamp = new String[4];
-
-        int minutes = Integer.parseInt(digitalMinutes);
-        adjustFiveMinutesLampsRow(fiveMinutesLamp, minutes);
-
-        oneMinuteLamp[0] = minutes % 5 >= 1 ? "Y" : "O";
-        oneMinuteLamp[1] = minutes % 5 >= 2 ? "Y" : "O";
-        oneMinuteLamp[2] = minutes % 5 >= 3 ? "Y" : "O";
-        oneMinuteLamp[3] = minutes % 5 >= 4 ? "Y" : "O";
+        convertDigitalMinutesToBerlinClockHours(digitalMinutes, fiveMinutesLamp, oneMinuteLamp);
 
         return "                 * *\n" +
                "               *     *\n" +
@@ -43,10 +36,6 @@ class BerlinClock {
                " ╚═══════╝╚═══════╝╚═══════╝╚═══════╝";
     }
 
-    private String switchOnFiveMinutesLamp(int position, int minutes, String colour) {
-        return minutes / 5 >= position ? colour : "O";
-    }
-
     private String extractDigitalHoursFromDigitalTime(String digitalTime) {
         return digitalTime.substring(0, 2);
     }
@@ -63,6 +52,12 @@ class BerlinClock {
         int hours = Integer.parseInt(digitalHours);
         adjustFiveHoursLampsRow(fiveHoursLamp, hours);
         adjustSingleHourLampsRow(oneHourLamp, hours);
+    }
+
+    private void convertDigitalMinutesToBerlinClockHours(String digitalMinutes, String[] fiveMinutesLamp, String[] oneMinuteLamp) {
+        int minutes = Integer.parseInt(digitalMinutes);
+        adjustFiveMinutesLampsRow(fiveMinutesLamp, minutes);
+        adjustSingleMinuteLampsRow(oneMinuteLamp, minutes);
     }
 
     private String convertDigitalSecondsToBerlinClockSeconds(String digitalSeconds) {
@@ -85,12 +80,24 @@ class BerlinClock {
         });
     }
 
+    private void adjustSingleMinuteLampsRow(String[] oneMinuteLamp, int minutes) {
+        IntStream.rangeClosed(1,4).forEach(num -> oneMinuteLamp[num-1] = switchOnSingleMinuteLamp(num, minutes));
+    }
+
     private String switchOnFiveHoursLamp(int position, int hours) {
         return hours / 5 >= position ? "R" : "O";
     }
 
     private String switchOnSingleHourLamp(int position, int hours) {
         return hours % 5 >= position ? "R" : "O";
+    }
+
+    private String switchOnFiveMinutesLamp(int position, int minutes, String colour) {
+        return minutes / 5 >= position ? colour : "O";
+    }
+
+    private String switchOnSingleMinuteLamp(int position, int minutes) {
+        return minutes % 5 >= position ? "Y" : "O";
     }
 
     private boolean isEvenSecond(int seconds) {
